@@ -1,0 +1,70 @@
+# системные файлы разных ОС
+.DS_Store
+Thumbs.db
+.gitconfig
+.htaccess
+web.config
+robots.txt
+/personal/list/actual_date.php
+/catalog/actual_date*
+
+# генерируемые дампы и XML, которые содержат данные, а данные в репе не храним
+*.sql
+*.xml
+*.txt
+bitrix/.settings.php
+
+# исключаем контент-файлы
+/upload*
+
+# ядро Битрикс
+/bitrix/.access.php
+/bitrix/activities/
+/bitrix/activity_limit.php
+/bitrix/admin/
+/bitrix/backup/
+/bitrix/click.php
+/bitrix/catalog_export/
+/bitrix/components/bitrix/
+/bitrix/coupon_activation.php
+/bitrix/css/
+/bitrix/fonts/
+/bitrix/footer.php
+/bitrix/gadgets/
+/bitrix/header.php
+/bitrix/image_uploader/
+/bitrix/images/
+/bitrix/index.php
+/bitrix/js/
+/bitrix/license_key.php
+/bitrix/modules/
+/bitrix/otp/
+/bitrix/p3p.xml
+/bitrix/redirect.php
+/bitrix/rk.php
+/bitrix/rss.php
+/bitrix/services/
+/bitrix/sounds/
+/bitrix/spread.php
+/bitrix/stop_redirect.php
+/bitrix/panel/
+/bitrix/template/
+/bitrix/templates/mail_user/
+/bitrix/themes/
+/bitrix/tmp/
+/bitrix/tools/
+/bitrix/urlrewrite.php
+/bitrix/updates/
+/bitrix/virtual_file_system.php
+/bitrix/web.config
+/bitrix/wizards/
+/bitrix/site_checker_*
+
+# настройки подключения к БД
+/bitrix/php_interface/dbconn.php
+/bitrix/php_interface/params.php
+
+# кеш
+/bitrix/cache/
+/bitrix/stack_cache/
+/bitrix/managed_cache/
