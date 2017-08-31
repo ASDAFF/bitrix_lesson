@@ -22,19 +22,16 @@
         $hlData = $strEntityDataClass::GetList(array(), $hlFilter, false, array("nPageSize"=>50), $hlSelect);
         while ($hlItem = $hlData->Fetch())
         {
-            $hlItems[] = $hlItem;
-
-            $arSelect = array("ID", "NAME", "DETAIL", "PREVIEW_PICTURE", "CATALOG_GROUP_1");
+            $arSelect = array();
             $arFilter = array("IBLOCK_ID"=>2, "ID"=>$hlItem['UF_PRODUCT_ID']);
             $res = CIBlockElement::GetList(array(), $arFilter, false, array("nPageSize"=>50), $arSelect);
-            while($ob = $res->GetNextElement())
+            while ($ob = $res->GetNextElement())
             {
                 $arFields = $ob->GetFields();
-                var_dump($arFields['NAME']);
+                array_push($arResult, $arFields);
             }
         }
     }
 
-    //$arResult['HL'] = $arItems[0]['UF_USER_ID'];
     $this->IncludeComponentTemplate();
 ?>
