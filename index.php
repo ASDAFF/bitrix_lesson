@@ -92,6 +92,7 @@ $APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
 		"MESS_BTN_ADD_TO_BASKET" => "В корзину",
 		"MESS_BTN_SUBSCRIBE" => "Подписаться",
 		"MESS_BTN_DETAIL" => "Подробнее",
+		"MESS_BTN_ADD_TO_WISHLIST" => "Добавить в список желаний",
 		"MESS_NOT_AVAILABLE" => "Нет в наличии",
 		"SECTION_URL" => "",
 		"DETAIL_URL" => "",
