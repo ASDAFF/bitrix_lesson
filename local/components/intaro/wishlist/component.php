@@ -15,11 +15,14 @@
     if (CModule::IncludeModule('highloadblock'))
     {
         $userId = $USER->GetID();
+        var_dump($userId);
 
-        $hlSelect = array('ID','UF_USER_ID','UF_PRODUCT_ID');
-        $hlFilter = array('UF_USER_ID' => $userId);
+        $hlData = $strEntityDataClass::getList(array(
+           "select" => array("*"),
+           "order" => array(),
+           "filter" => array('UF_USER_ID' => $userId)
+        ));
 
-        $hlData = $strEntityDataClass::GetList(array(), $hlFilter, false, array("nPageSize"=>50), $hlSelect);
         while ($hlItem = $hlData->Fetch())
         {
             $arSelect = array();

@@ -1,5 +1,5 @@
 $(function(){
-	$("#wishlist-btn").click(function(e){
+	$(document).on('click', '#wishlist-btn',function(e){
 		e.preventDefault();
 
 		var productId = $(this).attr("data-product-id");
