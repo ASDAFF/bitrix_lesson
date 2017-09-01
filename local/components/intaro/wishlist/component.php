@@ -11,6 +11,7 @@
 
     $entity = HL\HighloadBlockTable::compileEntity($hlblock); 
     $strEntityDataClass = $entity->getDataClass(); 
+    
 
     if (CModule::IncludeModule('highloadblock'))
     {

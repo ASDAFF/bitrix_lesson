@@ -2,6 +2,7 @@ $(function(){
 	$(document).on('click', '#wishlist-btn',function(e){
 		e.preventDefault();
 
+        var $this = $(this);
 		var productId = $(this).attr("data-product-id");
         //alert(productId);
 
@@ -10,7 +11,7 @@ $(function(){
 			type: 'POST',
 			data: {productId: productId},
 			success: function(data){
-				alert(data);
+				$this.replaceWith(data);
 			},
 			error: function (jqXHR, exception) {
                 var msg = '';

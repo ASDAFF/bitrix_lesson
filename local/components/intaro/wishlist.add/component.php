@@ -35,14 +35,13 @@
         }
 
         if ($arParams['ACTION'] == 'ADD') {
-            if ($arItem = $hlData->fetch()) {
+            if ($arResult['WISHLESS_ITEM']) {
                 $idForDel = $arItem['ID'];
                 $result = $strEntityDataClass::delete($idForDel);
             } else {
                 $result = $strEntityDataClass::add($hlFilter);
             }
         }
-        var_dump($arResult['WISHLESS_ITEM']); 
     }
     $this->IncludeComponentTemplate();
 ?>
