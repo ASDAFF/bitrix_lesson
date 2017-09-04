@@ -7,3 +7,4 @@ use Bitrix\Main\Entity;
             'PRODUCT_ID' => $_POST['productId']
     ]);
 ?>
+

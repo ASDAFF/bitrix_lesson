@@ -4,12 +4,15 @@
 	<?php foreach ($arResult as $wishItem): $imgPath = CFile::GetPath($wishItem['DETAIL_PICTURE']);?>
 		<tr style="height: 150px;">
 			<td align="center"><img src="<?=$imgPath?>" style="max-width: 100%; max-height: 150px;"></td>
-			<td valign="top" style="width: 80%; height: 100%; padding: 20px;"><h4><?echo $wishItem['NAME']?></h4></td>
+			<td valign="top" style="width: 80%; height: 100%; padding: 20px;"><h4><a href="<?=$wishItem['DETAIL_PAGE_URL']?>"><?echo $wishItem['NAME']?></a></h4></td>
 			<td class = "control">
-				<a href="">Купить</a>
+				<a href="<?=$wishItem['DETAIL_PAGE_URL']?>">Купить</a>
 				<br>
 				<a href="">Удалить</a>
 			</td>
 		</tr>
 	<?php endforeach; ?>
 </table>
+<?if($arParams["DISPLAY_BOTTOM_PAGER"]) :?> 
+<br /><?=$arResult["NAV_STRING"]?> 
+<?endif;?> 

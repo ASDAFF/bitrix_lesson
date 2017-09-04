@@ -4,7 +4,8 @@ $(function(){
 
         var $this = $(this);
 		var productId = $(this).attr("data-product-id");
-        //alert(productId);
+
+        $this.attr('disabled', 'disabled');
 
 		$.ajax({
 			url: '/local/components/intaro/wishlist.add/ajax.php',
@@ -30,8 +31,11 @@ $(function(){
                 } else {
                     msg = 'Uncaught Error.\n' + jqXHR.responseText;
                 }
-                //alert(msg);
+                alert(msg);
             },
+            complete: function() {
+                $this.removeAttr('disabled');
+            }
 		});
 	});
 });

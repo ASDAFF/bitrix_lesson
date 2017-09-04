@@ -11,27 +11,18 @@
 
     $entity = HL\HighloadBlockTable::compileEntity($hlblock); 
     $strEntityDataClass = $entity->getDataClass(); 
-    
 
     if (CModule::IncludeModule('highloadblock'))
     {
-        $userId = $USER->GetID();
-
-        $nav = new \Bitrix\Main\UI\PageNavigation("nav-more-notice");
-        $nav->allowAllRecords(true)
-            ->setPageSize($arParams['NAV_PAGE_SIZE'])
-            ->initFromUri();
-
         $hlData = $strEntityDataClass::getList(array(
-            "select" => array("*"),
-            "order" => array(),
-            "count_total" => true, 
-            "offset" => $nav->getOffset(), 
-            "limit" => $nav->getLimit(), 
-            "filter" => array('UF_USER_ID' => $userId)
+            "select" => array("UF_PRODUCT_ID"),
+            "filter" => array(),
+            "order" => array('CNT' => "DESC", "UF_PRODUCT_ID" => "ASC"),
+            "limit" => $arParams['WISHLIST_TOP_LIMIT'],
+            'runtime' => array(
+                new Entity\ExpressionField('CNT', 'COUNT(*)')
+            )
         ));
-
-        $hlCount = $hlData->getCount();
 
         while ($hlItem = $hlData->Fetch()) {
             $arSelect = array();
@@ -39,16 +30,7 @@
             $arElement = CIBlockElement::GetList(array(), $arFilter, false, [], $arSelect)->Fetch();
             array_push($arResult, $arElement);
         }
-
-        $nav->setRecordCount(10);
     }
 
     $this->IncludeComponentTemplate();
-
-    $APPLICATION->IncludeComponent("bitrix:main.pagenavigation", "", Array(
-        "NAV_OBJECT" => $nav,
-            "SEF_MODE" => "N"
-        ),
-        false
-    );
 ?>

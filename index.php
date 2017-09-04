@@ -27,6 +27,17 @@ $APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
 );?>
 <?endif?>
 
+<h2>Самые желанные товары</h2>
+<?$APPLICATION->IncludeComponent(
+	"intaro:wishlist.top",
+	".default",
+	array(
+		"WISHLIST_HL_ID" => 3,
+		"WISHLIST_TOP_LIMIT" => 3,
+		"CATALOG_IBLOCK_ID" => 2,
+	));
+?>
+
 <h2>Тренды сезона</h2>
 <?$APPLICATION->IncludeComponent(
 	"bitrix:catalog.section",

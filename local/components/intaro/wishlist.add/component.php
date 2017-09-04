@@ -6,15 +6,14 @@
     use Bitrix\Highloadblock as HL; 
     use Bitrix\Main\Entity; 
 
-    if ($USER->IsAuthorized()) 
-    {
-        $userId = $USER->GetID();
+    $hlbl = 3;
+    $hlblock = HL\HighloadBlockTable::getById($hlbl)->fetch(); 
+    
+    $entity = HL\HighloadBlockTable::compileEntity($hlblock); 
+    $strEntityDataClass = $entity->getDataClass(); 
 
-        $hlbl = 3;
-        $hlblock = HL\HighloadBlockTable::getById($hlbl)->fetch(); 
-        
-        $entity = HL\HighloadBlockTable::compileEntity($hlblock); 
-        $strEntityDataClass = $entity->getDataClass(); 
+    if ($USER->IsAuthorized()) {
+        $userId = $USER->GetID();
 
         $hlFilter = array(
             "UF_USER_ID"=>$userId,
@@ -27,19 +26,21 @@
                "filter" => $hlFilter
             ));
 
-        if ($hlData->fetch())
-        {
+        if ($arItem = $hlData->fetch()) {
             $arResult['WISHLESS_ITEM'] = false;
+            
         } else {
             $arResult['WISHLESS_ITEM'] = true;
         }
 
         if ($arParams['ACTION'] == 'ADD') {
-            if ($arResult['WISHLESS_ITEM']) {
+            if ($arResult['WISHLESS_ITEM'] == false) {
                 $idForDel = $arItem['ID'];
                 $result = $strEntityDataClass::delete($idForDel);
+                $arResult['WISHLESS_ITEM'] = true;
             } else {
                 $result = $strEntityDataClass::add($hlFilter);
+                $arResult['WISHLESS_ITEM'] = false;
             }
         }
     }
