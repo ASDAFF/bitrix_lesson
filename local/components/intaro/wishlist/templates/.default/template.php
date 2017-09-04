@@ -8,7 +8,7 @@
 			<td class = "control">
 				<a href="<?=$wishItem['DETAIL_PAGE_URL']?>">Купить</a>
 				<br>
-				<a href="">Удалить</a>
+				<a id = "wishlist-remove-btn" href="" wishlist_item_id="<?=$wishItem['HL_BLOCK_ID']?>">Удалить</a>
 			</td>
 		</tr>
 	<?php endforeach; ?>

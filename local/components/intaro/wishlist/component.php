@@ -37,12 +37,32 @@
             $arSelect = array();
             $arFilter = array("IBLOCK_ID" => $arParams['CATALOG_IBLOCK_ID'], "ID" => $hlItem['UF_PRODUCT_ID'], "ACTIVE" => "Y");
             $arElement = CIBlockElement::GetList(array(), $arFilter, false, [], $arSelect)->Fetch();
+
+            $arElement['HL_BLOCK_ID'] = $hlItem['ID'];
             array_push($arResult, $arElement);
+            
         }
 
         $nav->setRecordCount(10);
-    }
 
+        if ($arParams['ACTION'] == 'REMOVE') {
+            $hlFilter = array(
+                "UF_USER_ID"=>$userId,
+                "UF_PRODUCT_ID"=>$arParams['WISH_ID']
+            );
+
+            $hlData = $strEntityDataClass::getList(array(
+               "select" => array("*"),
+               "order" => array(),
+               "filter" => $hlFilter
+            ));
+
+            if ($arItem = $hlData->fetch()) {
+                $idForDel = $arItem['ID'];
+                $result = $strEntityDataClass::delete($idForDel);
+            }
+        }
+    }
     $this->IncludeComponentTemplate();
 
     $APPLICATION->IncludeComponent("bitrix:main.pagenavigation", "", Array(
