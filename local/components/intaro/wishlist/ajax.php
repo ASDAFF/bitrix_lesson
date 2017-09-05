@@ -8,5 +8,7 @@
 			"NAV_PAGE_SIZE" => 5,
 			"CATALOG_IBLOCK_ID" => 2,
     ]);
+
+    
 ?>
 
