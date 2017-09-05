@@ -4,8 +4,7 @@ $(function(){
 
         var $this = $(this);
 		var wishId = $(this).attr("wishlist_item_id");
-        var $thisPage = $(".wishlist");
-        var $thisPaginator = $(".bx-pagination ");
+        var $thisPage = $(".wishlist-page");
 
         $this.attr('disabled', 'disabled');
 
@@ -15,7 +14,7 @@ $(function(){
 			data: {wishId: wishId},
 			success: function(data){
 				$thisPage.replaceWith(data);
-                $thisPaginator.remove();
+                //$thisPaginator.remove();
 			},
 			error: function (jqXHR, exception) {
                 var msg = '';

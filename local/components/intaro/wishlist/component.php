@@ -13,7 +13,6 @@
     $entity = HL\HighloadBlockTable::compileEntity($hlblock); 
     $strEntityDataClass = $entity->getDataClass(); 
     
-
     if (CModule::IncludeModule('highloadblock'))
     {
         $userId = $USER->GetID();
@@ -37,6 +36,7 @@
         ));
 
         $hlCount = $hlData->getCount();
+        $arResult['NAV_RESULT'] = $hlCount;
 
         while ($hlItem = $hlData->Fetch()) {
             $arSelect = array();
@@ -44,18 +44,10 @@
             $arElement = CIBlockElement::GetList(array(), $arFilter, false, [], $arSelect)->Fetch();
 
             $arElement['HL_BLOCK_ID'] = $hlItem['ID'];
-            array_push($arResult, $arElement);
-            
+            //array_push($arResult, $arElement);
+            $arResult['ITEMS'][] = $arElement;
         }
-
-        $nav->setRecordCount($hlCount);
     }
-    $this->IncludeComponentTemplate();
 
-    $APPLICATION->IncludeComponent("bitrix:main.pagenavigation", "", Array(
-        "NAV_OBJECT" => $nav,
-            "SEF_MODE" => "N"
-        ),
-        false
-    );
+    $this->IncludeComponentTemplate();
 ?>
