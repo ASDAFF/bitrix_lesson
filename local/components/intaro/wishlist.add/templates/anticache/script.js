@@ -1,18 +1,13 @@
-$(function(){
-	$(document).on('click', '#wishlist-btn',function(e){
-		e.preventDefault();
-
-        var $this = $(this);
+$(document).ready(function(){
+        var $this = $("#anticache-btn");
 		var productId = $(this).attr("data-product-id");
-
-        $this.attr('disabled', 'disabled');
 
 		$.ajax({
 			url: '/local/components/intaro/wishlist.add/ajax.php',
 			type: 'POST',
 			data: {
                 productId: productId,
-                action: "add"
+                action: "refresh"
             },
 			success: function(data){
 				$this.replaceWith(data);
@@ -36,9 +31,5 @@ $(function(){
                 }
                 alert(msg);
             },
-            complete: function() {
-                $this.removeAttr('disabled');
-            }
 		});
-	});
 });
