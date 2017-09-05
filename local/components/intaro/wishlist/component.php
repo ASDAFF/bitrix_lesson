@@ -22,6 +22,25 @@
             ->setPageSize($arParams['NAV_PAGE_SIZE'])
             ->initFromUri();
 
+        if ($arParams['ACTION'] == 'REMOVE') {
+            echo "123";
+            $delFilter = array(
+                "UF_USER_ID"=>$userId,
+                "UF_PRODUCT_ID"=>$arParams['WISH_ID']
+            );
+
+            $delData = $strEntityDataClass::getList(array(
+               "select" => array("*"),
+               "order" => array(),
+               "filter" => $delFilter
+            ));
+
+            if ($delItem = $delData->fetch()) {
+                $idForDel = $delItem['ID'];
+                $result = $strEntityDataClass::delete($idForDel);
+            }
+        }
+
         $hlData = $strEntityDataClass::getList(array(
             "select" => array("*"),
             "order" => array(),
@@ -44,24 +63,6 @@
         }
 
         $nav->setRecordCount(10);
-
-        if ($arParams['ACTION'] == 'REMOVE') {
-            $hlFilter = array(
-                "UF_USER_ID"=>$userId,
-                "UF_PRODUCT_ID"=>$arParams['WISH_ID']
-            );
-
-            $hlData = $strEntityDataClass::getList(array(
-               "select" => array("*"),
-               "order" => array(),
-               "filter" => $hlFilter
-            ));
-
-            if ($arItem = $hlData->fetch()) {
-                $idForDel = $arItem['ID'];
-                $result = $strEntityDataClass::delete($idForDel);
-            }
-        }
     }
     $this->IncludeComponentTemplate();
 
