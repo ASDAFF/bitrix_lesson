@@ -4,6 +4,7 @@ $(function(){
 
         var $this = $(this);
 		var wishId = $(this).attr("wishlist_item_id");
+        var $thisPage = $(".wishlist");
 
         $this.attr('disabled', 'disabled');
 
@@ -12,7 +13,7 @@ $(function(){
 			type: 'POST',
 			data: {wishId: wishId},
 			success: function(data){
-				//$this.replaceWith(data);
+				$thisPage.replaceWith(data);
 			},
 			error: function (jqXHR, exception) {
                 var msg = '';

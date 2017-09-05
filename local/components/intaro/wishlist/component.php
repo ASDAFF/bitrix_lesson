@@ -2,6 +2,7 @@
     if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
     CModule::IncludeModule("highloadblock"); 
+    CModule::IncludeModule("iblock"); 
 
     use Bitrix\Highloadblock as HL; 
     use Bitrix\Main\Entity; 
@@ -23,22 +24,7 @@
             ->initFromUri();
 
         if ($arParams['ACTION'] == 'REMOVE') {
-            echo "123";
-            $delFilter = array(
-                "UF_USER_ID"=>$userId,
-                "UF_PRODUCT_ID"=>$arParams['WISH_ID']
-            );
-
-            $delData = $strEntityDataClass::getList(array(
-               "select" => array("*"),
-               "order" => array(),
-               "filter" => $delFilter
-            ));
-
-            if ($delItem = $delData->fetch()) {
-                $idForDel = $delItem['ID'];
-                $result = $strEntityDataClass::delete($idForDel);
-            }
+            $result = $strEntityDataClass::delete($arParams['WISH_ID']);
         }
 
         $hlData = $strEntityDataClass::getList(array(
@@ -62,7 +48,7 @@
             
         }
 
-        $nav->setRecordCount(10);
+        $nav->setRecordCount($hlCount);
     }
     $this->IncludeComponentTemplate();
 

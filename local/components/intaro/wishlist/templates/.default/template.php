@@ -1,6 +1,6 @@
 <? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 
-<table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
+<table class = "wishlist" style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
 	<?php foreach ($arResult as $wishItem): $imgPath = CFile::GetPath($wishItem['DETAIL_PICTURE']);?>
 		<tr style="height: 150px;">
 			<td align="center"><img src="<?=$imgPath?>" style="max-width: 100%; max-height: 150px;"></td>
