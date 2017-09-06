@@ -11,6 +11,7 @@ $theme = COption::GetOptionString("main", "wizard_eshop_bootstrap_theme_id", "bl
 	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
 	<link rel="shortcut icon" type="image/x-icon" href="<?=SITE_DIR?>favicon.ico" />
 	<script src = "<?=SITE_TEMPLATE_PATH . "/js/jquery-3.2.1"?>"></script>
+	<script src = "<?=SITE_TEMPLATE_PATH . "/js/main.js"?>"></script>
 	<?$APPLICATION->ShowHead();?>
 	<?
 	use Bitrix\Main\Page\Asset;

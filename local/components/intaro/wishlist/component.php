@@ -23,7 +23,9 @@
             ->initFromUri();
 
         if ($arParams['ACTION'] == 'REMOVE') {
-            $result = $strEntityDataClass::delete($arParams['WISH_ID']);
+            if ($strEntityDataClass::getList(array("select" => array("*"), "filter" => array('UF_USER_ID' => $userId, "ID" => $arParams['WISH_ID'])))->Fetch()) {
+                $result = $strEntityDataClass::delete($arParams['WISH_ID']);
+            }
         }
 
         $hlData = $strEntityDataClass::getList(array(
@@ -38,17 +40,22 @@
         $hlCount = $hlData->getCount();
         $arResult['NAV_RESULT'] = $hlCount;
 
+        $hlItems = [];
         while ($hlItem = $hlData->Fetch()) {
-            $hlItemsId[] = $hlItem['ID'];
+            $hlItems[$hlItem['ID']] = $hlItem['UF_PRODUCT_ID'];
         }
 
-        $arSelect = array();
-        $arFilter = array("IBLOCK_ID" => $arParams['CATALOG_IBLOCK_ID'], "ID" => $hlItem['UF_PRODUCT_ID'], "ACTIVE" => "Y");
-        $arElement = CIBlockElement::GetList(array(), $arFilter, false, [], $arSelect)->GetNext();
-
-        $arElement['HL_BLOCK_ID'] = $hlItem['ID'];
-        $arResult['ITEMS'][] = $arElement;
+        if (!empty($hlItems)) {
+            $productIdToId = array_flip($hlItems);
+            $arSelect = array();
+            $arFilter = array("IBLOCK_ID" => $arParams['CATALOG_IBLOCK_ID'], "ID" => $hlItems, "ACTIVE" => "Y");
+            $dbElements = CIBlockElement::GetList([], $arFilter, false, [], $arSelect);
+            while ($arElement = $dbElements->Fetch()) {
+                $iBlockItem = $arElement;
+                $iBlockItem['HL_ITEM_ID'] = $productIdToId[$arElement['ID']];
+                $arResult['ITEMS'][] = $iBlockItem;
+            }
+        }
     }
 
     $this->IncludeComponentTemplate();
-?>
