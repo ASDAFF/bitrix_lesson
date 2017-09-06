@@ -716,12 +716,15 @@ if (!empty($arParams['LABEL_PROP_POSITION']))
 											}
 											?>
 											<div class="product-item-detail-info-container">
-												<?$APPLICATION->IncludeComponent('intaro:wishlist.add',"anticache",
-												array(
+												<?
+												$APPLICATION->IncludeComponent(
+													'intaro:wishlist.add',"anticache",
+													array(
 													'PRODUCT_ID' => $arResult['ID'],
-												),
+													),
 												false
-												);?>
+												);
+												?>
 												<a class="btn btn-link product-item-detail-buy-button" id="<?=$itemIds['NOT_AVAILABLE_MESS']?>"
 													href="javascript:void(0)"
 													rel="nofollow" style="display: <?=(!$actualItem['CAN_BUY'] ? '' : 'none')?>;">

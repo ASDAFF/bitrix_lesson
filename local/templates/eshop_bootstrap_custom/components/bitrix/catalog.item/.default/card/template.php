@@ -173,7 +173,7 @@ use \Bitrix\Main\Localization\Loc;
 									style="display: none;" data-entity="quantity-limit-block">
 									<div class="product-item-info-container-title">
 										<?=$arParams['MESS_SHOW_MAX_QUANTITY']?>:
-										<span class="product-item-quantity" data-entity="quantity-limit-value"></span>
+										<span class="product-item-quantity" data-entity="quantity-limit-value">фывыфа</span>
 									</div>
 								</div>
 								<?
@@ -286,6 +286,13 @@ use \Bitrix\Main\Localization\Loc;
 						<?
 						if (!$haveOffers)
 						{
+							$APPLICATION->IncludeComponent(
+								'intaro:wishlist.add',"",
+								array(
+								'PRODUCT_ID' => $actualItem['ID'],
+								),
+							false
+							);
 							if ($actualItem['CAN_BUY'])
 							{
 								?>
@@ -355,6 +362,7 @@ use \Bitrix\Main\Localization\Loc;
 										<?=$arParams['MESS_NOT_AVAILABLE']?>
 									</a>
 									<div id="<?=$itemIds['BASKET_ACTIONS']?>" style="display: <?=($actualItem['CAN_BUY'] ? '' : 'none')?>;">
+									123123214
 										<a class="btn btn-default <?=$buttonSizeClass?>" id="<?=$itemIds['BUY_LINK']?>"
 											href="javascript:void(0)" rel="nofollow">
 											<?=($arParams['ADD_TO_BASKET_ACTION'] === 'BUY' ? $arParams['MESS_BTN_BUY'] : $arParams['MESS_BTN_ADD_TO_BASKET'])?>
