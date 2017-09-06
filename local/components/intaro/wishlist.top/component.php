@@ -27,7 +27,7 @@
         while ($hlItem = $hlData->Fetch()) {
             $arSelect = array();
             $arFilter = array("IBLOCK_ID" => $arParams['CATALOG_IBLOCK_ID'], "ID" => $hlItem['UF_PRODUCT_ID'], "ACTIVE" => "Y");
-            $arElement = CIBlockElement::GetList(array(), $arFilter, false, [], $arSelect)->Fetch();
+            $arElement = CIBlockElement::GetList(array(), $arFilter, false, [], $arSelect)->GetNext();
             array_push($arResult, $arElement);
         }
     }
