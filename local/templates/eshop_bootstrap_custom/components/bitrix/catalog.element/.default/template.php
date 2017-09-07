@@ -718,7 +718,7 @@ if (!empty($arParams['LABEL_PROP_POSITION']))
 											<div class="product-item-detail-info-container">
 												<?
 												$APPLICATION->IncludeComponent(
-													'intaro:wishlist.add',"anticache",
+													'intaro:wishlist.add',"",
 													array(
 													'PRODUCT_ID' => $arResult['ID'],
 													),

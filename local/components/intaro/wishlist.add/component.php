@@ -1,17 +1,8 @@
-<?php
-    if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
-
-    CModule::IncludeModule("highloadblock");
-    CModule::IncludeModule("iblock");
-
-    use Bitrix\Highloadblock as HL;
-    use Bitrix\Main\Entity;
-
-    $hlbl = 3;
-    $hlblock = HL\HighloadBlockTable::getById($hlbl)->fetch();
-
-    $entity = HL\HighloadBlockTable::compileEntity($hlblock);
-    $strEntityDataClass = $entity->getDataClass();
+<?php if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+        use Bitrix\Highloadblock as HL;
+        use Bitrix\Main\Entity;
+        CModule::IncludeModule("highloadblock");
+        CModule::IncludeModule("iblock");
 
     if ($USER->IsAuthorized()) {
         $userId = $USER->GetID();
@@ -21,11 +12,13 @@
             "UF_PRODUCT_ID"=>$arParams['PRODUCT_ID']
         );
 
-        $hlData = $strEntityDataClass::getList(array(
+        $request = array(
                "select" => array("*"),
                "order" => array(),
                "filter" => $hlFilter
-            ));
+            );
+
+        $hlData = $this->get($request);
 
         if ($arItem = $hlData->fetch()) {
             $arResult['WISHLESS_ITEM'] = false;
@@ -36,13 +29,12 @@
         if ($arParams['ACTION'] == 'ADD') {
             if ($arResult['WISHLESS_ITEM'] == false) {
                 $idForDel = $arItem['ID'];
-                $result = $strEntityDataClass::delete($idForDel);
+                $result = $this->delete($idForDel);
                 $arResult['WISHLESS_ITEM'] = true;
             } else if (CIBlockElement::GetList([], ['IBLOCK_ID' => 3, 'ACTIVE' => 'Y'])->Fetch()) {
-                $result = $strEntityDataClass::add($hlFilter);
+                $result = $this->add($hlFilter);
                 $arResult['WISHLESS_ITEM'] = false;
             }
         }
     }
     $this->IncludeComponentTemplate();
-?>

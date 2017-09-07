@@ -50,7 +50,7 @@
             $arSelect = array();
             $arFilter = array("IBLOCK_ID" => $arParams['CATALOG_IBLOCK_ID'], "ID" => $hlItems, "ACTIVE" => "Y");
             $dbElements = CIBlockElement::GetList([], $arFilter, false, [], $arSelect);
-            while ($arElement = $dbElements->Fetch()) {
+            while ($arElement = $dbElements->GetNext()) {
                 $iBlockItem = $arElement;
                 $iBlockItem['HL_ITEM_ID'] = $productIdToId[$arElement['ID']];
                 $arResult['ITEMS'][] = $iBlockItem;

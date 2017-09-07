@@ -286,6 +286,9 @@ use \Bitrix\Main\Localization\Loc;
 						<?
 						if (!$haveOffers)
 						{
+							?>
+							<div class="product-item-button-container" id="<?=$itemIds['BASKET_ACTIONS']?>">
+							<?
 							$APPLICATION->IncludeComponent(
 								'intaro:wishlist.add',"",
 								array(
@@ -293,6 +296,9 @@ use \Bitrix\Main\Localization\Loc;
 								),
 							false
 							);
+							?>
+							</div>
+							<?
 							if ($actualItem['CAN_BUY'])
 							{
 								?>
