@@ -2,14 +2,22 @@
 use Bitrix\Highloadblock as HL;
 use Bitrix\Main\Entity;
 
+CBitrixComponent::includeComponentClass("intaro:wishlist.add");
+
 	if ($_POST['action'] == "add") {
-	    $APPLICATION->IncludeComponent('intaro:wishlist.add', '', [
+	    $userId = $USER->GetID();
+		$idArray = $_POST['productId'];
+		$wishAdd = new WishAdd();
+		$wishAdd->arParams = [
 	            'ACTION' => 'ADD',
 	            'PRODUCT_ID' => $_POST['productId']
-	    ]);
+	    ];
+		$res = $wishAdd->addAndRefresh($userId, $productId);
+
+		header('Content-Type: application/json');
+		echo json_encode($res);
+		die();
 	} else if ($_POST['action'] == "refresh") {
-		CBitrixComponent::includeComponentClass("intaro:wishlist.add");
-		
 		$userId = $USER->GetID();
 		$idArray = $_POST['idArray'];
 		$res = WishAdd::getAll($userId, $idArray);

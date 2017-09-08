@@ -27,28 +27,61 @@ class WishAdd extends CBitrixComponent
         return $strEntityDataClass;
     }
 
-    public function get($request)
+    public static function get($request)
     {
-        $entity = $this->getHlEntity();
+        $entity = self::getHlEntity();
         $hlData = $entity::getList($request);
 
         return $hlData;
     }
 
-    public function add($data)
+    public static function add($data)
     {
-        $entity = $this->getHlEntity();
+        $entity = self::getHlEntity();
         $result = $entity::add($data);
 
         return $result;
     }
 
-    public function delete($id)
+    public static function delete($id)
     {
-        $entity = $this->getHlEntity();
+        $entity = self::getHlEntity();
         $result = $entity::delete($id);
 
         return $result;
+    }
+
+    public function addAndRefresh($userId, $productId){
+        $entity = self::getHlEntity();
+        $filter = array(
+            "UF_USER_ID"=>$userId,
+            "UF_PRODUCT_ID"=>$productId
+        );
+        $request = array(
+               "select" => array("*"),
+               "order" => array(),
+               "filter" => $filter
+            );
+        $hlData = $entity::getList($request);
+
+        if ($arItem = $hlData->fetch()) {
+            $arResult['WISHLESS_ITEM'] = false;
+        } else {
+            $arResult['WISHLESS_ITEM'] = true;
+        }
+
+        if ($arResult['WISHLESS_ITEM'] == false) {
+            $idForDel = $arItem['ID'];
+            $result = $this->delete($idForDel);
+            $arResult['WISHLESS_ITEM'] = true;
+            $res[$productId] = true;
+        } else if (CIBlockElement::GetList([], ['IBLOCK_ID' => 3, 'ACTIVE' => 'Y'])->Fetch()) {
+            $result = $this->add($filter);
+            $arResult['WISHLESS_ITEM'] = false;
+            $res[$productId] = false;
+        }
+
+        return $res;
     }
 
     public static function getAll($userId, $idArray){
